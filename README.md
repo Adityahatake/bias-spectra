@@ -85,4 +85,16 @@ This behavior reflects real-world media patterns and is **documented intentional
 ---
 
 ## 📂 Project Structure
+bias-spectra/
+├── data/
+│ ├── raw/
+│ └── processed/
+├── models/
+├── src/
+│ ├── app.py
+│ ├── political_filter.py
+│ ├── train_indicbert.py
+│ └── evaluate_bert.py
+├── README.md
+└── MODEL_CARD.md
 
