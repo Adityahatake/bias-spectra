@@ -64,18 +64,26 @@ not as a fact-checking system.
 
 ## 🛠️Structure
 
+# Project Structure
+
+
+
+```
 bias-spectra/
 ├── data/
-│   ├── raw/                 # Unprocessed, original datasets
-│   └── processed/           # Cleaned and preprocessed datasets
+│   ├── raw/
+│   └── processed/
 │
-├── models/                  # Saved model checkpoints and artifacts
+├── models/
 │
-├── src/                     # Core source code
-│   ├── app.py               # Main application entry point
-│   ├── political_filter.py  # Political bias classification logic
-│   ├── train_indicbert.py   # Training script for IndicBERT
-│   └── evaluate_bert.py     # Evaluation script for model performance
+├── src/
+│   ├── app.py
+│   ├── political_filter.py
+│   ├── train_indicbert.py
+│   └── evaluate_bert.py
 │
-├── README.md                # Project overview and usage instructions
-└── MODEL_CARD.md            # Detailed model card explaining architecture, training, and limitations
+├── README.md
+└── MODEL_CARD.md
+```
+
+
