@@ -39,28 +39,6 @@ not as a fact-checking system.
 
 ---
 
-## ⚠️ Known Limitation: Left-Leaning Bias
-
-The current model shows a mild Left-leaning bias in low-confidence cases.
-
-**Reason:**
-- Indian news language contains richer linguistic patterns for criticism
-  than for explicit pro-government advocacy.
-- This results in uncertainty cases leaning toward Left due to learned priors.
-
-This behavior reflects real-world media patterns and is **documented intentionally**.
-
----
-
-## 🚀 Planned Improvements
-
-- Dataset rebalancing with class-weighted loss
-- Confidence-threshold-based Neutral fallback
-- Right-framing calibration
-- Full-article (not just headline) analysis
-- Improved evaluation using macro-F1
-
----
 
 ## 🧪 Example Predictions
 
