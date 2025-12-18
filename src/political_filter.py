@@ -31,10 +31,10 @@ NON_POLITICAL_KEYWORDS: List[str] = [
 
     # Technology & gadgets
     "technology", "mobile", "smartphone", "launch",
-    "review", "price", "features",
+    "review", "features",
 
     # General info
-    "festival", "event", "tourism", "travel"
+     "tourism", "travel"
 ]
 
 
