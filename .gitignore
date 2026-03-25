@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ML Models (large binary files)
+models/*.pkl
+models/indicbert_bias/
+
+# Data (raw scraped data can be large)
+data/raw/
+data/processed/
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env

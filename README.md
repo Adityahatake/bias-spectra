@@ -1,100 +1,169 @@
-# BiasSpectra 📰
-### ML-based Political Bias Detection System for Indian News
+# BiasSpectra 🔬
 
-BiasSpectra is an NLP-driven system that detects ideological bias
-(**Left / Neutral / Right**) in Indian news headlines using a hybrid
-approach combining rule-based filtering and a fine-tuned BERT model.
+**ML-powered political bias detection for Indian news headlines**
 
----
+BiasSpectra is an NLP system that detects ideological bias (**Left / Neutral / Right**) in Indian news headlines using a hybrid approach: rule-based keyword filtering + **zero-shot NLI classification** (DeBERTa). Unlike source-based training approaches, BiasSpectra actually *understands* the framing of each headline.
 
-## 🔍 Why BiasSpectra?
-
-Media bias detection is challenging in the Indian context due to:
-- Multilingual reporting
-- Subtle ideological framing
-- Asymmetric criticism vs advocacy language
-
-BiasSpectra is designed as a **media literacy and research tool**,
-not as a fact-checking system.
+> ⚠️ This is a **media literacy and research tool**, not a fact-checking system. Predictions reflect *linguistic framing*, not factual correctness.
 
 ---
 
-## 🧠 How It Works
+## How It Works
 
-1. User inputs a news headline
-2. Rule-based filter removes non-political content (weather, sports, etc.)
-3. Political but unbiased headlines are classified as **Neutral**
-4. Ideologically framed headlines are analyzed using BERT
-5. Confidence scores are displayed for transparency
+```
+                    ┌─────────────────┐
+                    │  Input Headline  │
+                    └────────┬────────┘
+                             │
+                    ┌────────▼────────┐
+                    │  Gate 1: Is it   │──── Yes ──→ Neutral (Non-Political)
+                    │  non-political?  │              weather, sports, etc.
+                    └────────┬────────┘
+                             │ No
+                    ┌────────▼────────┐
+                    │  Gate 2: Contains │──── No ──→ Neutral (Unbiased Political)
+                    │  political bias? │
+                    └────────┬────────┘
+                             │ Yes
+                    ┌────────▼─────────────────┐
+                    │  Gate 3: Zero-Shot NLI    │
+                    │  Tests 10 hypotheses      │──→ Left / Neutral / Right
+                    │  about political framing  │    + confidence scores
+                    └───────────────────────────┘
+```
 
----
-
-## 🏷️ Bias Classes
-
-- **Left** – Critical or accountability-focused framing  
-- **Neutral** – Descriptive or informational framing  
-- **Right** – Supportive or pro-establishment framing  
-
-⚠️ Non-political content is automatically classified as **Neutral**.
-
----
-
-## ⚠️ Known Limitation: Left-Leaning Bias
-
-The current model shows a mild Left-leaning bias in low-confidence cases.
-
-**Reason:**
-- Indian news language contains richer linguistic patterns for criticism
-  than for explicit pro-government advocacy.
-- This results in uncertainty cases leaning toward Left due to learned priors.
-
-This behavior reflects real-world media patterns and is **documented intentionally**.
-
----
-
-## 🚀 Planned Improvements
-
-- Dataset rebalancing with class-weighted loss
-- Confidence-threshold-based Neutral fallback
-- Right-framing calibration
-- Full-article (not just headline) analysis
-- Improved evaluation using macro-F1
+**Bias Classes:**
+| Class | Description |
+|-------|-------------|
+| 🟥 **Left** | Critical / accountability-focused framing |
+| 🟡 **Neutral** | Descriptive / informational framing |
+| 🟦 **Right** | Supportive / pro-establishment framing |
 
 ---
 
-## 🧪 Example Predictions
+## Quick Start
 
-| Headline | Prediction |
-|--------|------------|
-| Hyderabad Weather Forecast | Neutral (Non-Political) |
-| Supreme Court hears plea | Neutral |
-| Opposition criticizes government | Left |
-| Government rejects opposition claims | Right |
+### Installation
+
+```bash           
+git clone https://github.com/Adityahatake/bias-spectra.git
+cd bias-spectra
+pip install -r requirements.txt
+```
+
+### Web App (Streamlit)
+
+```bash
+python run.py app
+# or directly:
+streamlit run src/app.py
+```
+
+### CLI
+
+```bash
+# Single prediction
+python run.py predict "Opposition criticizes government on farm laws"
+python run.py predict --model baseline "Supreme Court hears plea"
+
+# Train models
+python run.py train --model baseline
+python run.py train --model bert
+
+# Evaluate models
+python run.py evaluate
+python run.py evaluate --model bert
+```
 
 ---
 
-## 🛠️ Tech Stack
+## Project Structure
 
-- Python
-- HuggingFace Transformers
-- BERT (Multilingual)
-- PyTorch
-- Streamlit
-- scikit-learn (baseline)
-
----
-
-## 📂 Project Structure
+```
 bias-spectra/
-├── data/
-│ ├── raw/
-│ └── processed/
-├── models/
+├── config.py                    # Centralized configuration
+├── run.py                       # CLI entry point
+├── requirements.txt             # Dependencies
+│
 ├── src/
-│ ├── app.py
-│ ├── political_filter.py
-│ ├── train_indicbert.py
-│ └── evaluate_bert.py
-├── README.md
-└── MODEL_CARD.md
+│   ├── __init__.py
+│   ├── app.py                   # Streamlit web application
+│   ├── political_filter.py      # Rule-based headline filter
+│   │
+│   ├── data/
+│   │   ├── scraper.py           # News headline scraper
+│   │   └── preprocessor.py      # Data cleaning & balancing
+│   │
+│   ├── training/
+│   │   ├── baseline.py          # TF-IDF + LogReg trainer
+│   │   └── bert_trainer.py      # BERT fine-tuning trainer
+│   │
+│   ├── evaluation/
+│   │   └── evaluator.py         # Unified model evaluator
+│   │
+│   └── inference/
+│       └── predictor.py         # BiasPredictor engine
+│
+├── data/
+│   ├── raw/                     # Scraped headlines (gitignored)
+│   └── processed/               # Cleaned dataset (gitignored)
+│
+├── models/                      # Trained model artifacts (gitignored)
+│
+├── model_card.md                # ML Model Card
+└── README.md
+```
 
+---
+
+## Tech Stack
+
+| Component | Technology |
+|-----------|-----------|
+| Language | Python 3.10+ |
+| Primary Model | DeBERTa-v3 Zero-Shot NLI (MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli) |
+| Legacy Models | Fine-tuned mBERT, TF-IDF + LogReg |
+| Framework | PyTorch + HuggingFace Transformers |
+| Web App | Streamlit |
+
+---
+
+## Methodology: Multi-Hypothesis NLI
+
+Instead of training on source-labeled data (which bakes in bias), BiasSpectra uses **zero-shot Natural Language Inference**. For each headline, the model tests 10 hypotheses:
+
+| Hypothesis | Signal |
+|-----------|--------|
+| "This text criticizes the government or ruling party" | Left |
+| "This text demands accountability from people in power" | Left |
+| "This text highlights failures or corruption of the establishment" | Left |
+| "This text advocates for social justice or civil liberties" | Left |
+| "This text supports the government or ruling party" | Right |
+| "This text promotes nationalism or national pride" | Right |
+| "This text praises government policies or achievements" | Right |
+| "This text frames opposition or dissent negatively" | Right |
+| "This text is a factual news report without opinion" | Neutral |
+| "This text describes events objectively without taking sides" | Neutral |
+
+Scores are averaged per class, normalized, and the top class wins — unless the margin is too thin, in which case the headline defaults to Neutral.
+
+---
+
+## Known Limitations
+
+- **Headline-only**: Currently analyzes only headlines, not full articles.
+- **English-centric**: NLI model works best on English; mixed-language headlines may reduce accuracy.
+- **Framing ambiguity**: Some headlines are genuinely ambiguous; low-confidence predictions default to Neutral.
+
+---
+
+## Author
+
+**Aditya Daksh**
+BTech CSE (AI)
+
+---
+
+## License
+
+This project is for educational and research purposes.
