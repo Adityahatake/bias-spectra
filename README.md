@@ -160,7 +160,7 @@ Scores are averaged per class, normalized, and the top class wins — unless the
 ## Author
 
 **Aditya Daksh**
-BTech CSE (AI)
+
 
 ---
 
