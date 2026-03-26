@@ -8,6 +8,16 @@ BiasSpectra is an NLP system that detects ideological bias (**Left / Neutral / R
 
 ---
 
+<p align="center">
+  <img src="assets/left.png" width="30%" />
+  <img src="assets/nuetral.png" width="30%" />
+  <img src="assets/right.png" width="30%" />
+</p>
+
+<p align="center">
+  🟥 Left &nbsp;&nbsp;&nbsp; 🟡 Neutral &nbsp;&nbsp;&nbsp; 🟦 Right
+</p>
+
 ## How It Works
 
 ```
@@ -160,7 +170,7 @@ Scores are averaged per class, normalized, and the top class wins — unless the
 ## Author
 
 **Aditya Daksh**
-BTech CSE (AI)
+
 
 ---
 
