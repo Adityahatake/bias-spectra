@@ -61,12 +61,12 @@ cd bias-spectra
 pip install -r requirements.txt
 ```
 
-### Web App (Streamlit)
+### Web App (FastAPI + HTML/CSS/JS)
 
 ```bash
 python run.py app
 # or directly:
-streamlit run src/app.py
+uvicorn src.app:app --reload
 ```
 
 ### CLI
@@ -97,7 +97,8 @@ bias-spectra/
 │
 ├── src/
 │   ├── __init__.py
-│   ├── app.py                   # Streamlit web application
+│   ├── app.py                   # FastAPI backend & static server
+│   ├── frontend/                # Custom HTML/CSS/JS UI
 │   ├── political_filter.py      # Rule-based headline filter
 │   │
 │   ├── data/
@@ -134,7 +135,7 @@ bias-spectra/
 | Primary Model | DeBERTa-v3 Zero-Shot NLI (MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli) |
 | Legacy Models | Fine-tuned mBERT, TF-IDF + LogReg |
 | Framework | PyTorch + HuggingFace Transformers |
-| Web App | Streamlit |
+| Web App | Vanilla HTML/CSS/JS + FastAPI |
 
 ---
 

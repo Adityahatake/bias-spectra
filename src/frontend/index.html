@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiasSpectra - Premium Bias Detector</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg-accent circle-1"></div>
+    <div class="glass-bg-accent circle-2"></div>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1 class="hero-title">
+                <span class="gradient-text">BiasSpectra</span>
+            </h1>
+            <p class="hero-subtitle">State-of-the-art ML modeling identifying political bias in news framing</p>
+        </header>
+
+        <section class="app-layout">
+            
+            <!-- Left Side: Input and Settings -->
+            <div class="panel input-panel glassmorphism">
+                <div class="panel-header">
+                    <h2>Analysis Configuration</h2>
+                </div>
+                
+                <div class="form-group">
+                    <label for="headline">News Headline</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="headline" placeholder="e.g., Supreme Court hears plea on new education policy..." rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="model">Inference Engine</label>
+                    <div class="select-wrapper">
+                        <select id="model">
+                            <option value="nli">Zero-shot NLI (DeBERTa) - Recommended</option>
+                            <option value="bert">Fine-tuned BERT (Legacy)</option>
+                            <option value="baseline">TF-IDF Baseline (Legacy)</option>
+                        </select>
+                        <i class="chevron-down-icon">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </i>
+                    </div>
+                    <p class="model-hint">NLI evaluates multiple hypotheses about framing.</p>
+                </div>
+
+                <button id="analyze-btn" class="primary-btn">
+                    <span class="btn-text">Analyze Bias</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </div>
+
+            <!-- Right Side: Result -->
+            <div class="panel result-panel glassmorphism" id="result-panel">
+                <div id="empty-state" class="empty-state">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" y1="22" x2="12" y2="12"></line></svg>
+                    <p>Enter a headline to reveal its ideological framing.</p>
+                </div>
+                
+                <!-- Dynamic Content Wrapper -->
+                <div id="result-content" class="result-content hidden">
+                    <div class="result-header">
+                        <span class="gate-badge" id="gate-badge">⚡ Gate</span>
+                    </div>
+
+                    <div class="bias-outcome">
+                        <h2 class="bias-label" id="bias-label">Neutral</h2>
+                        <p class="bias-reasoning" id="bias-reasoning"></p>
+                    </div>
+
+                    <div class="confidence-section" id="confidence-section">
+                        <h3 class="conf-title">Model Confidence</h3>
+                        <div class="conf-tracks" id="conf-tracks">
+                            <!-- Tracks injected here via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Strip -->
+        <section class="history-section">
+            <h3 class="history-title">Recent Inferences</h3>
+            <div class="history-track glassmorphism" id="history-track">
+                <div class="history-empty">No history available yet.</div>
+                <!-- History items injected here -->
+            </div>
+        </section>
+
+        <footer>
+            <p>BiasSpectra · Powered by FastAPI & HuggingFace Transformers</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

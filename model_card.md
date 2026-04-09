@@ -68,4 +68,4 @@ The model uses multi-hypothesis NLI scoring. Evaluation metrics:
 ## Author
 
 **Aditya Daksh**
-BTech CSE (AI)
+

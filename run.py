@@ -74,10 +74,9 @@ def cmd_evaluate(args):
 
 
 def cmd_app(args):
-    """Launch the Streamlit app."""
+    """Launch the FastAPI server."""
     import subprocess
-    app_path = os.path.join(os.path.dirname(__file__), "src", "app.py")
-    subprocess.run([sys.executable, "-m", "streamlit", "run", app_path])
+    subprocess.run([sys.executable, "-m", "uvicorn", "src.app:app", "--reload", "--host", "127.0.0.1", "--port", "8000"])
 
 
 def main():
