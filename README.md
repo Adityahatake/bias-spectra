@@ -148,7 +148,7 @@ bias-spectra/
 ## Methodology: Multi-Hypothesis NLI
 
 <p align="center">
-  <img src="assets/Models.png" width="80%" alt="Models architecture" />
+  <img src="assets/model.png" width="80%" alt="Models architecture" />
 </p>
 
 Instead of training on source-labeled data (which bakes in bias), BiasSpectra uses **zero-shot Natural Language Inference**. For each headline, the model tests 10 hypotheses:
