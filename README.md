@@ -2,6 +2,8 @@
 
 **ML-powered political bias detection for Indian news headlines**
 
+🚀 **[Try the Live Demo](https://huggingface.co/spaces/dakshaditya/bias-spectra)**
+
 BiasSpectra is an NLP system that detects ideological bias (**Left / Neutral / Right**) in Indian news headlines using a hybrid approach: rule-based keyword filtering + **zero-shot NLI classification** (DeBERTa). Unlike source-based training approaches, BiasSpectra actually *understands* the framing of each headline.
 
 > ⚠️ This is a **media literacy and research tool**, not a fact-checking system. Predictions reflect *linguistic framing*, not factual correctness.
