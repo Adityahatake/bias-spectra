@@ -1,4 +1,4 @@
-# BiasSpectra 🔬
+# BiasSpectra 
 
 **ML-powered political bias detection for Indian news headlines**
 
@@ -9,22 +9,6 @@ BiasSpectra is an NLP system that detects ideological bias (**Left / Neutral / R
 > ⚠️ This is a **media literacy and research tool**, not a fact-checking system. Predictions reflect *linguistic framing*, not factual correctness.
 
 ---
-
-<p align="center">
-  <img src="assets/UI.png" width="80%" alt="BiasSpectra Web Interface" />
-</p>
-
-### Classification Examples
-
-<p align="center">
-  <img src="assets/left.png" width="30%" />
-  <img src="assets/neutral.png" width="30%" />
-  <img src="assets/right.png" width="30%" />
-</p>
-
-<p align="center">
-  🟥 Left &nbsp;&nbsp;&nbsp; 🟡 Neutral &nbsp;&nbsp;&nbsp; 🟦 Right
-</p>
 
 ## How It Works
 
@@ -148,10 +132,6 @@ bias-spectra/
 ---
 
 ## Methodology: Multi-Hypothesis NLI
-
-<p align="center">
-  <img src="assets/model.png" width="80%" alt="Models architecture" />
-</p>
 
 Instead of training on source-labeled data (which bakes in bias), BiasSpectra uses **zero-shot Natural Language Inference**. For each headline, the model tests 10 hypotheses:
 
